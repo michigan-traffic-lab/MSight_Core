@@ -1,0 +1,40 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  redis-server:
+    image: redis
+    network_mode: "host"
+    restart: ${restart_strategy}
+    env_file:
+      - .env-tcp
+  image_source:
+    image: msight_edge2
+    depends_on:
+      - redis-server
+    network_mode: "host"
+    entrypoint: ["msight_launch_local_image"]
+    command: ["-n", "test_local", "-t", "local", "--sensor-name", "local_image", "-p", "/data/example.jpg"]
+    restart: ${restart_strategy}
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone:ro
+      - ./data:/data
+    env_file:
+      - .env-tcp
+
+  image_sink:
+    image: msight_edge2
+    depends_on:
+      - redis-server
+    network_mode: "host"
+    entrypoint: ["msight_launch_image_viewer"]
+    command: ["-n", "image_viewer", "-t", "local"]
+    restart: ${restart_strategy}
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone:ro
+      - ./data:/data
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=unix${DISPLAY}
+    env_file:
+      - .env-tcp

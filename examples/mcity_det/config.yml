@@ -1,0 +1,4 @@
+locMaps:
+  mcity_edge-gs-ne: "examples/mcity_det/loc_maps/locmap_sip_gs_ne_2023_v1.npz"
+  mcity_edge-gs-sw: "examples/mcity_det/loc_maps/locmap_sip_gs_sw_2023_v1.npz"
+checkpoint: "examples/mcity_det/checkpoints/yolov8m_midadvrb_pretrained_mcitygs.pt"

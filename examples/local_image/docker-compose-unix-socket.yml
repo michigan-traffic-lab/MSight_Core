@@ -1,0 +1,58 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  tmp:
+    image: busybox
+    command: >
+      /bin/sh -c "mkdir -p /tmp/docker && 
+                chmod -R 777 /tmp/docker && 
+                touch /tmp/docker/redis.sock && 
+                chmod 777 /tmp/docker/redis.sock"
+    volumes:
+      - /tmp/docker/
+  redis-server:
+    image: redis
+    network_mode: "host"
+    command: redis-server /data/redis.conf
+    restart: ${restart_strategy}
+    env_file:
+      - .env-unix-socket
+    volumes:
+      - ./data:/data
+    volumes_from:
+      - tmp
+  image_source:
+    image: msight_edge2
+    depends_on:
+      - redis-server
+    network_mode: "host"
+    entrypoint: ["msight_launch_local_image"]
+    command: ["-n", "test_local", "-t", "local", "--sensor-name", "local_image", "-p", "/data/example.jpg"]
+    restart: ${restart_strategy}
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone:ro
+      - ./data:/data
+    env_file:
+      - .env-unix-socket
+    volumes_from:
+      - tmp
+
+  image_sink:
+    image: msight_edge2
+    depends_on:
+      - redis-server
+    network_mode: "host"
+    entrypoint: ["msight_launch_image_viewer"]
+    command: ["-n", "image_viewer", "-t", "local"]
+    restart: ${restart_strategy}
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone:ro
+      - ./data:/data
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=unix${DISPLAY}
+    env_file:
+      - .env-unix-socket
+    volumes_from:
+      - tmp

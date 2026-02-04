@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "msight_core"
+version = "2.0.0"
+description = "A package for edge computing with msight edge nodes."
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.9"
+authors = [{ name = "Rusheng Zhang", email = "rushegz@umich.edu" }]
+urls = { Homepage = "https://msight.um.city" }
+
+# keep requirements.txt behavior
+dynamic = ["dependencies"]
+
+[project.optional-dependencies]
+docs = [
+  "mkdocs-material",
+  "mkdocstrings[python]",
+  "mkdocs-gen-files",
+  "mkdocs-literate-nav",
+  "pymdown-extensions",
+]
+
+[project.scripts]
+msight_launch_local_image = "cli.launch_local_image:main"
+msight_launch_image_viewer = "cli.launch_image_viewer:main"
+msight_launch_rtsp = "cli.launch_rtsp:main"
+msight_reset_redis = "cli.reset_redis:main"
+msight_launch_http = "cli.launch_http:main"
+msight_download_data = "cli.download_data:main"
+msight_status = "cli.status:main"
+msight_launch_downloaded_image_player = "cli.launch_downloaded_image_player:main"
+msight_launch_downloaded_image_player_fps = "cli.launch_downloaded_image_player_fps:main"
+msight_launch_bytes_viewer = "cli.launch_bytes_viewer:main"
+msight_launch_detection_results_viewer = "cli.launch_detection_results_viewer:main"
+msight_launch_kinesis_pusher = "cli.launch_kinesis_pusher:main"
+msight_launch_sdsm_encoder = "cli.launch_sdsm_encoder:main"
+msight_launch_ifm = "cli.launch_ifm:main"
+msight_launch_buffering_sort = "cli.launch_buffering_sort:main"
+msight_launch_udp_server = "cli.launch_udp_server:main"
+msight_launch_image_to_video_aggregator = "cli.launch_image_to_video_aggregator:main"
+msight_launch_road_user_list_aggregator = "cli.launch_road_user_list_aggregator:main"
+msight_launch_aws_video_pusher = "cli.launch_aws_video_pusher:main"
+msight_launch_velodyne_lidar = "cli.launch_velodyne_lidar:main"
+msight_launch_pointcloud_viewer = "cli.launch_pointcloud_viewer:main"
+msight_launch_pointcloud_local_dumper = "cli.launch_pointcloud_local_dumper:main"
+msight_launch_video_local_dumper = "cli.launch_video_local_dumper:main"
+msight_launch_aggregator = "cli.launch_aggregator:main"
+msight_launch_aws_sequence_pusher = "cli.launch_aws_sequence_pusher:main"
+msight_launch_websocket_client = "cli.launch_websocket_client:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["msight_core*", "cli*"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }

@@ -1,0 +1,36 @@
+site_name: msight_core API
+theme:
+  name: material
+
+plugins:
+  - search
+  - gen-files:
+      scripts:
+        - docs/gen_ref_pages.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: false
+            show_root_heading: true
+            show_object_full_path: false
+            members_order: source
+
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight
+
+nav:
+  - Home: index.md
+  - Reference: reference/
+
+
+extra:
+  generator: false
+copyright: "© University of Michigan — Mcity & Michigan Mobility Transformation Lab"
+
+use_directory_urls: true
