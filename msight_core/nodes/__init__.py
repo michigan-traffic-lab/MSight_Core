@@ -20,9 +20,7 @@ from .sink_pointcloud_local_dumper import PointCloudLocalDumperSinkNode
 from .sink_kinesis_pusher import KinesisPusherSinkNode
 try:
     from .data_process_sdsm_encoder import SDSMEncoderNode
-except ImportError:
-    print(f"Waining: SDSMEncoderNode not imported. Please install the required dependencies.")
-except RuntimeError:
+except:
     print(f"Waining: SDSMEncoderNode not imported. Please install the required dependencies.")
 from .data_process_buffering_sort import BufferingSortNode
 # from .data_process_road_user_list_aggregator import RoadUserListAggregatorNode
