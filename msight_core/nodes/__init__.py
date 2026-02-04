@@ -22,6 +22,8 @@ try:
     from .data_process_sdsm_encoder import SDSMEncoderNode
 except ImportError:
     print(f"Waining: SDSMEncoderNode not imported. Please install the required dependencies.")
+except RuntimeError:
+    print(f"Waining: SDSMEncoderNode not imported. Please install the required dependencies.")
 from .data_process_buffering_sort import BufferingSortNode
 # from .data_process_road_user_list_aggregator import RoadUserListAggregatorNode
 from .data_process_image_to_video_aggregator import ImageToVideoAggregatorNode
