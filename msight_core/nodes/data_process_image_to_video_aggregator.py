@@ -64,7 +64,7 @@ class ImageToVideoAggregatorNode(AggregatorNode):
                 fps=self.fps,
                 codec=self.codec,
                 extension='.mp4',
-                plugin_kwargs=self.ffmpeg_params,
+                ffmpeg_params=self.ffmpeg_params,
             )
             videoData = VideoData(
                 video=video_bytes,
