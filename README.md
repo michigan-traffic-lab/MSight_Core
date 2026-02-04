@@ -2,7 +2,7 @@
 MSight Core is an edge computing software system for connected and automated vehicle applications. It is designed to run on edge devices to integrate with traffic controllers, roadside sensors, road-side unit (RSU) and connected vehicles and infrastructure in real-time.
 
 
-## Installation and Run
+<!-- ## Installation and Run
 ### Docker Installation:
 Do the following step to install the project on a edge device.
 
@@ -67,5 +67,5 @@ mkdocs serve -a 0.0.0.0:8080
 Build static documentation:
 ```bash
 mkdocs build
-```
+``` -->
 
