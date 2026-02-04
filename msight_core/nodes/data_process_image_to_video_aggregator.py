@@ -17,7 +17,8 @@ class ImageToVideoAggregatorNode(AggregatorNode):
         buffer_size,
         overlap_size,
         fps: int = 30,
-        codec: str = "libx265"
+        codec: str = "libx265",
+        ffmpeg_params: dict = None,
     ):
         super().__init__(
             configs,
@@ -30,6 +31,10 @@ class ImageToVideoAggregatorNode(AggregatorNode):
         self.video_buffers = {} # sensor_name -> IOBytes
         self.video_writers = {} # sensor_name -> VideoWriter
         self.frames = {}  # sensor_name -> list of frames
+        if ffmpeg_params is None:
+            self.ffmpeg_params = {"ffmpeg_params": ["-pix_fmt", "yuv420p"]}
+        else:
+            self.ffmpeg_params = ffmpeg_params
 
     def initialize(self, sensor_name: str):
         """Initialize the video buffer and writer for the given sensor."""
@@ -59,7 +64,7 @@ class ImageToVideoAggregatorNode(AggregatorNode):
                 fps=self.fps,
                 codec=self.codec,
                 extension='.mp4',
-                plugin_kwargs={"ffmpeg_params": ["-pix_fmt", "yuv420p"]},
+                plugin_kwargs=self.ffmpeg_params,
             )
             videoData = VideoData(
                 video=video_bytes,
