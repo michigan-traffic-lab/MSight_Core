@@ -18,7 +18,7 @@ class ImageToVideoAggregatorNode(AggregatorNode):
         overlap_size,
         fps: int = 30,
         codec: str = "libx265",
-        ffmpeg_params: dict = None,
+        ffmpeg_params: list = None,
     ):
         super().__init__(
             configs,
@@ -32,7 +32,7 @@ class ImageToVideoAggregatorNode(AggregatorNode):
         self.video_writers = {} # sensor_name -> VideoWriter
         self.frames = {}  # sensor_name -> list of frames
         if ffmpeg_params is None:
-            self.ffmpeg_params = {"ffmpeg_params": ["-pix_fmt", "yuv420p"]}
+            self.ffmpeg_params=["-pix_fmt", "yuv420p"],
         else:
             self.ffmpeg_params = ffmpeg_params
 
