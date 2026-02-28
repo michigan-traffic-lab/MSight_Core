@@ -27,4 +27,3 @@ LOGGING_LEVEL = os.getenv("MSIGHT_LOGGING_LEVEL", "INFO").upper()
 logging.basicConfig(level=LOGGING_LEVEL)
 
 assert MSIGHT_EDGE_DEVICE_NAME is not None, "MSIGHT_EDGE_DEVICE_NAME environment variable must be set."
-

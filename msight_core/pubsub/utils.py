@@ -86,7 +86,6 @@ def get_nats_config(group_id):
         MSIGHT_NATS_TLS_CERT_FILE: Client certificate file path (optional)
         MSIGHT_NATS_TLS_KEY_FILE: Client key file path (optional)
         MSIGHT_NATS_TLS_CA_CERT_FILE: CA certificate file path (optional)
-        MSIGHT_NATS_TLS_VERIFY: Verify server certificate ("true"/"1"/"yes", default: "true")
     
     Args:
         group_id (str or None): Consumer group identifier for JetStream subscriptions.
@@ -104,7 +103,6 @@ def get_nats_config(group_id):
             - user_jwt (str, optional): JWT token
             - user_credentials (str, optional): Path to credentials file
             - tls (bool, optional): TLS enabled flag
-            - tls_verify (bool, optional): Certificate verification flag
             - tls_ca_cert (str, optional): CA certificate path
             - tls_cert (str, optional): Client certificate path
             - tls_key (str, optional): Client key path
@@ -201,18 +199,16 @@ def get_nats_config(group_id):
     # TLS/SSL configuration
     use_tls = os.getenv("MSIGHT_NATS_USE_TLS", "false").lower() in ["true", "1", "yes"]
     if use_tls:
+        import ssl
         tls_config = {
             "tls": True
         }
         
-        # TLS verification (default: True)
-        tls_verify = os.getenv("MSIGHT_NATS_TLS_VERIFY", "true").lower() in ["true", "1", "yes"]
-        tls_config["tls_verify"] = tls_verify
-        
         # CA certificate
         tls_ca_cert = os.getenv("MSIGHT_NATS_TLS_CA_CERT_FILE", None)
         if tls_ca_cert:
-            tls_config["tls_ca_cert"] = tls_ca_cert
+            ssl_ctx = ssl.create_default_context(cafile=tls_ca_cert)
+            tls_config["tls"] = ssl_ctx
         
         # Client certificate and key
         tls_cert = os.getenv("MSIGHT_NATS_TLS_CERT_FILE", None)

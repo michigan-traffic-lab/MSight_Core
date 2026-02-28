@@ -96,7 +96,6 @@ class NATSPubSub(PubSubBackend):
             - ``tls_ca_cert`` (str): Path to CA certificate
             - ``tls_cert`` (str): Path to client certificate
             - ``tls_key`` (str): Path to client key
-            - ``tls_verify`` (bool): Verify server certificate
 
     Raises:
         Exception: If connection to NATS servers fails.
@@ -193,8 +192,9 @@ class NATSPubSub(PubSubBackend):
             connect_opts['user_credentials'] = self.config['user_credentials']
         
         # TLS options
-        if self.config.get('tls', False):
-            connect_opts['tls'] = True
+        tls = self.config.get('tls', False)
+        if tls:
+            connect_opts['tls'] = tls
             if 'tls_ca_cert' in self.config:
                 connect_opts['tls_ca_cert'] = self.config['tls_ca_cert']
             if 'tls_cert' in self.config:
@@ -203,6 +203,8 @@ class NATSPubSub(PubSubBackend):
                 connect_opts['tls_client_key'] = self.config['tls_key']
             if 'tls_verify' in self.config:
                 connect_opts['tls_verify'] = self.config['tls_verify']
+
+        print(connect_opts)  # Debug: print connection options
         
         await self.nc.connect(**connect_opts)  
 

@@ -128,6 +128,8 @@ def get_redis_client()-> redis.Redis | redis.RedisCluster:
         "port": int(REDIS_MESSAGE_BROKER_PORT),
         "db": int(REDIS_MESSAGE_BROKER_DB)
     })
+
+    # print(f"Connecting to Redis with parameters: {connection_kwargs}")
     
     return redis.Redis(**connection_kwargs)
 
