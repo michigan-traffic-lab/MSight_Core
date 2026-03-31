@@ -69,3 +69,36 @@ Build static documentation:
 mkdocs build
 ``` -->
 
+## Documentation
+
+Install the documentation dependencies:
+
+```bash
+pip install mkdocs mkdocs-material mkdocs-gen-files mkdocs-literate-nav mkdocstrings[python] pymdown-extensions
+```
+
+Serve the documentation locally:
+
+```bash
+mkdocs serve
+mkdocs serve -a localhost:8080
+mkdocs serve -a 0.0.0.0:8080
+```
+
+Build the static site locally:
+
+```bash
+mkdocs build
+```
+
+This repository now includes a GitHub Pages deployment workflow at `.github/workflows/deploy-docs.yml`.
+On every push to `main`, GitHub Actions builds the MkDocs site and publishes it to GitHub Pages.
+
+GitHub Pages still needs one repository-level setting enabled once:
+
+1. Open the repository settings on GitHub.
+2. Go to `Settings > Pages`.
+3. Set the build source to `GitHub Actions`.
+
+After that, pushes to `main` will update the published site automatically.
+

@@ -1,4 +1,7 @@
 site_name: msight_core API
+site_url: https://michigan-traffic-lab.github.io/MSight_Core/
+repo_url: https://github.com/michigan-traffic-lab/MSight_Core
+repo_name: michigan-traffic-lab/MSight_Core
 theme:
   name: material
 
