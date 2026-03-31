@@ -1,4 +1,4 @@
-# Local Image Viewer in MSight Edge
+# Local Image Viewer in MSight Core
 
 This is a minimum showcase on how MSight works, this example spin up two node, one read a local image from disk, and another node display the node.
 
