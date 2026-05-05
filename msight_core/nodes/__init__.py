@@ -32,6 +32,7 @@ from .source_udp_server import UdpServerSourceNode
 from .sink_video_local_dumper import VideoLocalDumperSinkNode
 from .sink_aws_video_pusher import AWSVideoPusherSinkNode
 from .sink_aws_sequence_pusher import AWSSequencePusherSinkNode
+from .sink_aws_sns_pusher import AWSSNSPusherSinkNode
 from .sink_image_local_dumper import ImageLocalDumperSinkNode
 # from .source_ouster import OusterSourceNode # do not import this node because some of the dependencies are not installed in some of the Docker images
 # from .source_mcity_spat import MCitySpatSourceNode

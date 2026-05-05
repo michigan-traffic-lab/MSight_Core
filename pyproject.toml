@@ -49,6 +49,7 @@ msight_launch_pointcloud_local_dumper = "cli.launch_pointcloud_local_dumper:main
 msight_launch_video_local_dumper = "cli.launch_video_local_dumper:main"
 msight_launch_aggregator = "cli.launch_aggregator:main"
 msight_launch_aws_sequence_pusher = "cli.launch_aws_sequence_pusher:main"
+msight_launch_aws_sns_pusher = "cli.launch_aws_sns_pusher:main"
 msight_launch_websocket_client = "cli.launch_websocket_client:main"
 
 [tool.setuptools]
