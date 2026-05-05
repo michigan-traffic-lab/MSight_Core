@@ -1,5 +1,6 @@
 from msight_core.nodes import AWSSNSPusherSinkNode
 from msight_core.utils import get_default_arg_parser, get_node_config_from_args
+import time
 
 
 def main():
@@ -18,8 +19,15 @@ def main():
         action="store_true",
         help="Use dualstack endpoint for the SNS client.",
     )
+    parser.add_argument(
+        "--wait", "-w",
+        type=int,
+        default=0,
+        help="The wait time in seconds before starting the node.",
+    )
 
     args = parser.parse_args()
+    time.sleep(args.wait)
     configs = get_node_config_from_args(args)
 
     node = AWSSNSPusherSinkNode(
