@@ -5,6 +5,7 @@ from botocore.config import Config
 from msight_core import MSIGHT_EDGE_DEVICE_NAME
 import threading
 import os
+import uuid
 
 _aws_region = os.environ.get('AWS_REGION', 'us-east-1')
 
@@ -27,9 +28,11 @@ class AWSSNSPusherSinkNode(SinkNode):
         configs: NodeConfig,
         topic_arn: str,
         use_dualstack_endpoint: bool = True,
+        fifo: bool = False,
     ):
         super().__init__(configs)
         self.topic_arn = topic_arn
+        self.fifo = fifo
         self.sns_client = boto3.client(
             "sns",
             region_name=_aws_region,
@@ -67,13 +70,18 @@ class AWSSNSPusherSinkNode(SinkNode):
                 "StringValue": str(creation_timestamp),
             }
 
+        publish_kwargs = {
+            "TopicArn": self.topic_arn,
+            "Message": message,
+            "MessageAttributes": message_attributes,
+        }
+        if self.fifo:
+            publish_kwargs["MessageGroupId"] = sensor_name
+            publish_kwargs["MessageDeduplicationId"] = uuid.uuid4().hex
+
         def _publish():
             try:
-                res = self.sns_client.publish(
-                    TopicArn=self.topic_arn,
-                    Message=message,
-                    MessageAttributes=message_attributes,
-                )
+                res = self.sns_client.publish(**publish_kwargs)
                 self.logger.info(
                     f"Published to SNS {self.topic_arn}, MessageId: {res['MessageId']}."
                 )
@@ -91,6 +99,7 @@ class AWSSNSPusherSinkNode(SinkNode):
         subscribe_topic: str,
         topic_arn: str,
         use_dualstack_endpoint: bool = True,
+        fifo: bool = False,
     ):
         configs = NodeConfig(
             name=name,
@@ -100,4 +109,5 @@ class AWSSNSPusherSinkNode(SinkNode):
             configs,
             topic_arn,
             use_dualstack_endpoint=use_dualstack_endpoint,
+            fifo=fifo,
         )

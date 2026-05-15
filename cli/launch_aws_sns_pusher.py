@@ -20,6 +20,11 @@ def main():
         help="Use dualstack endpoint for the SNS client.",
     )
     parser.add_argument(
+        "--fifo",
+        action="store_true",
+        help="Publish to a FIFO SNS topic. Uses sensor_name as MessageGroupId and a unique uuid as MessageDeduplicationId.",
+    )
+    parser.add_argument(
         "--wait", "-w",
         type=int,
         default=0,
@@ -34,6 +39,7 @@ def main():
         configs,
         args.topic_arn,
         use_dualstack_endpoint=args.use_dualstack_endpoint,
+        fifo=args.fifo,
     )
     node.spin()
 
