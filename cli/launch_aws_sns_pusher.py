@@ -1,0 +1,48 @@
+from msight_core.nodes import AWSSNSPusherSinkNode
+from msight_core.utils import get_default_arg_parser, get_node_config_from_args
+import time
+
+
+def main():
+    parser = get_default_arg_parser(
+        description="Launch AWS SNS Pusher Sink Node. Publishes subscribed data to an SNS topic with filterable message attributes (sensor_name, device_name, capture_timestamp, creation_timestamp).",
+        node_class=AWSSNSPusherSinkNode,
+    )
+    parser.add_argument(
+        "--topic-arn",
+        type=str,
+        required=True,
+        help="ARN of the SNS topic to publish to.",
+    )
+    parser.add_argument(
+        "--use-dualstack-endpoint",
+        action="store_true",
+        help="Use dualstack endpoint for the SNS client.",
+    )
+    parser.add_argument(
+        "--fifo",
+        action="store_true",
+        help="Publish to a FIFO SNS topic. Uses sensor_name as MessageGroupId and a unique uuid as MessageDeduplicationId.",
+    )
+    parser.add_argument(
+        "--wait", "-w",
+        type=int,
+        default=0,
+        help="The wait time in seconds before starting the node.",
+    )
+
+    args = parser.parse_args()
+    time.sleep(args.wait)
+    configs = get_node_config_from_args(args)
+
+    node = AWSSNSPusherSinkNode(
+        configs,
+        args.topic_arn,
+        use_dualstack_endpoint=args.use_dualstack_endpoint,
+        fifo=args.fifo,
+    )
+    node.spin()
+
+
+if __name__ == "__main__":
+    main()

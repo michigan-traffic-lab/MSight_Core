@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "msight_core"
-version = "2.0.0"
+version = "2.0.2"
 description = "A package for edge computing with msight edge nodes."
 readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.9"
@@ -50,6 +50,7 @@ msight_launch_pointcloud_local_player = "cli.launch_pointcloud_local_player:main
 msight_launch_video_local_dumper = "cli.launch_video_local_dumper:main"
 msight_launch_aggregator = "cli.launch_aggregator:main"
 msight_launch_aws_sequence_pusher = "cli.launch_aws_sequence_pusher:main"
+msight_launch_aws_sns_pusher = "cli.launch_aws_sns_pusher:main"
 msight_launch_websocket_client = "cli.launch_websocket_client:main"
 
 [tool.setuptools]

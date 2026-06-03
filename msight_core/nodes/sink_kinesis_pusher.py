@@ -1,7 +1,8 @@
 import boto3
+import botocore.config
 import os
 region_name = os.environ.get('AWS_REGION', 'us-east-1')
-kinesis_client = boto3.client('kinesis', region_name=region_name)
+kinesis_client = boto3.client('kinesis', region_name=region_name, config=botocore.config.Config(use_dualstack_endpoint=True))
 from msight_core.nodes import SinkNode
 import time
 import threading
