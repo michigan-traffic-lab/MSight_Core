@@ -17,6 +17,7 @@ from .sink_detection_results_viewer import DetectionResultsSinkNode
 from .sink_ifm import IFMSinkNode
 from .sink_pointcloud_viewer import PointCloudViewerSinkNode
 from .sink_pointcloud_local_dumper import PointCloudLocalDumperSinkNode
+from .source_local_pointcloud_player import LocalPointCloudPlayerSourceNode
 from .sink_kinesis_pusher import KinesisPusherSinkNode
 try:
     from .data_process_sdsm_encoder import SDSMEncoderNode
