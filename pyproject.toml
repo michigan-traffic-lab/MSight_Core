@@ -26,6 +26,7 @@ docs = [
 [project.scripts]
 msight_launch_local_image = "cli.launch_local_image:main"
 msight_launch_image_viewer = "cli.launch_image_viewer:main"
+msight_launch_image_local_dumper = "cli.launch_image_local_dumper:main"
 msight_launch_rtsp = "cli.launch_rtsp:main"
 msight_reset_redis = "cli.reset_redis:main"
 msight_launch_http = "cli.launch_http:main"
