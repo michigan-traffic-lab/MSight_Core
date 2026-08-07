@@ -1,5 +1,5 @@
-from msight_edge.nodes import ImageLocalDumperSinkNode
-from msight_edge.utils import get_default_arg_parser, get_node_config_from_args
+from msight_core.nodes import ImageLocalDumperSinkNode
+from msight_core.utils import get_default_arg_parser, get_node_config_from_args
 
 def main():
     argparser = get_default_arg_parser(description="Launch Image Local Dumper Sink Node, this node saves image data to local folder.", node_class=ImageLocalDumperSinkNode)
